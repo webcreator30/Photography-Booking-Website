@@ -145,7 +145,7 @@
         
         <div class="container-sm my-5 w-50">
             <h2 class="fs-1 text-center">CONTACT US</h2>
-            <form method="post">
+            <form method="post" id="contactForm">
         
                 <div class="mb-3">
                     <label for="exampleInputUsername1" class="form-label">Username</label>
@@ -161,12 +161,40 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1">Message</label>
-                    <textarea type="text" class="form-control" name="msg" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea type="text" class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                
                 <button type="submit" class="btn btn-info">Submit</button>
             </form>
         </div>
+     <script>
+          document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            try {
+            const response = await fetch('http://localhost:9000/photo-web/join-us', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formObject)
+            });
+            if (!response.ok) {
+                throw new Error('Failed to submit form');
+            }
+            const data = await response.json();
+            console.log(data); // Do something with the response
+            alert('Form submitted successfully!');
+        } catch (error) {
+            console.error(error);
+            alert('Failed to submit form. Please try again later.');
+        }
+        });
+     </script>
     
     </body>
 </html>
