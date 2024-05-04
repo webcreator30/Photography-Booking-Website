@@ -199,7 +199,7 @@
                 formObject[key] = value;
             });
             try {
-                const response = await fetch('http://localhost:9000/photo-web/book-service', {
+                const response = await fetch('https://backend-photo-2.onrender.com/photo-web/book-service', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
